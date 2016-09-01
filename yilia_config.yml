@@ -1,8 +1,7 @@
 # Header
 menu:
-  主页: /
-  所有: /archives
-  标签: /tags
+  首页: /
+  归档: /archives
   关于: /about
 
 # SubNav
@@ -26,7 +25,7 @@ rss: /atom.xml
 root: 
 
 # Content
-excerpt_link: more
+excerpt_link: 阅读全文
 fancybox: true
 mathjax: true
 
@@ -34,14 +33,14 @@ mathjax: true
 animate: true
 
 # 是否在新窗口打开链接
-open_in_new: false
+open_in_new: true
 
 # Miscellaneous
 google_analytics: ''
 favicon: /favicon.png
 
 #你的头像url
-avatar: http://oc90zyyoj.bkt.clouddn.com/juan_avater.jpg
+avatar: https://oc90zyyoj.bkt.clouddn.com/juan_avater.jpg
 #是否开启分享
 share_jia: false
 share_addthis: false
@@ -56,10 +55,11 @@ tagcloud: true
 #friends: false
 #开启——
 friends: 
+
   Qi's Blog: https://nextinnovationucas.github.io/
   
 #是否开启“关于我”。
 #不开启——
-#aboutme: false
+aboutme: false
 #开启——
-aboutme: 我只是一个想努力提高自己的程序渣……
+#aboutme: 我只是一个想努力提高自己的程序渣……

@@ -5,9 +5,6 @@ tags:
 - github
 - hexo
 -  blog
-photo: 
-- http://cnd.aips.me/photos-0.jpg
-- http://oc90zyyoj.bkt.clouddn.com/juan_avater.jpg
 ---
 
 # **环境搭建** #
@@ -117,14 +114,10 @@ win10下安装MarkDownPad2时需要安装库文件 Awesomium 1.6.6 SDK，详情�
     ## Docs: http://hexo.io/docs/deployment.html
     deploy:
       type: github
-      repository: git@github.com:rolex-cjj.github.io.git
+      repository: https://github.com/rolex-cjj/rolex-cjj.github.io.git
       branch: master
 
 **Note:**
-
-Repository：必须是SSH形式的url，而不能是HTTPS形式的url，否则会出现错误。
-
-使用SSH url，如果电脑没有开放SSH 端口，会致部署失败。
 
 如果你是为一个项目制作网站，那么需要把branch设置为gh-pages。
 

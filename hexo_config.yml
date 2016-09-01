@@ -7,7 +7,7 @@ title: ROLEX's Blog
 subtitle: 不忘初心
 description: 我只是一个想努力提高自己的程序渣……
 author: juan
-language:
+language: zh-Hans
 timezone:
 
 # URL
@@ -69,5 +69,5 @@ theme: yilia
 ## Docs: https://hexo.io/docs/deployment.html
 deploy: 
   type: git
-  repository: git@github.com:rolex-cjj/rolex-cjj.github.io.git
+  repository: https://github.com/rolex-cjj/rolex-cjj.github.io.git
   branch: master
