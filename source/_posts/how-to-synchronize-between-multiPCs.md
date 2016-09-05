@@ -1,8 +1,13 @@
 ---
-title: github实现不同电脑下hexo博客的同步
-date: 2016-09-02 18:47:19
-tags: [github,hexo,blog]
+title: Github实现不同电脑下hexo博客的同步
+date: 2016-09-02 13:56:42
+tags: 
+- github
+- hexo
+-  blog
 ---
+
+
 
 hexo+github如何建立自己的博客在上节中已经讲过了，详情请见[如何用Hexo搭建Github静态博客](https://rolex-cjj.github.io/2016/08/30/how-to-build-my-own-blog-by-hexo/)
 
