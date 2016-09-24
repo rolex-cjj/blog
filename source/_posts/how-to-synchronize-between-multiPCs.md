@@ -78,7 +78,9 @@ $ git push -u origin master
 
 ## A电脑更新本地博客
 
-  `$ git pull https://github.com/xxxx/xxx.git`
+```
+$ git pull https://github.com/xxxx/xxx.git
+```
 
 **Note:**
 
@@ -86,7 +88,9 @@ $ git push -u origin master
 
 每次更新博客之前都需要执行
 
-`$ git pull https://github.com/xxxx/xxx.git`
+```
+$ git pull https://github.com/xxxx/xxx.git
+```
 
 保持本地最新；
 
