@@ -1,5 +1,5 @@
 ---
-title: ubuntu16.04 使用apt-mirror配置本地源
+title: Ubuntu16.04 使用apt-mirror配置本地源
 date: 2016-10-18 15:40:17
 tags: [ubuntu,apt-mirror]
 ---
@@ -12,7 +12,7 @@ $sudo apt-get install apt-mirror
 
 - **查看系统的研发代号**
 
-首先查看自己的ubuntu系统的Codename，这直接导致你更新的源是否对你的系统起效果，查看方法：
+首先查看自己的Ubuntu系统的Codename，这直接导致你更新的源是否对你的系统起效果，查看方法：
 
 ```shell
 lsb_release –a
@@ -22,7 +22,7 @@ lsb_release –a
 
 - **确认源支持**
 
-以阿里源为例，登陆 http://mirrors.aliyun.com/ubuntu/dists/ ，该网页显示了阿里云支持的ubuntu系统下各个Codename版本，确保自己的Codename在该网页中存在。
+以阿里源为例，登陆 http://mirrors.aliyun.com/ubuntu/dists/ ，该网页显示了阿里云支持的Ubuntu系统下各个Codename版本，确保自己的Codename在该网页中存在。
 
 附上Ubuntu16.04源列表：http://wiki.ubuntu.com.cn/%E6%A8%A1%E6%9D%BF:16.04source
 
