@@ -190,8 +190,6 @@ sudo apt-get update
 
 我在最后一步重建本地索引的时候报错了。
 
-![img](file:///C:\Users\rolex\AppData\Local\Temp\msohtmlclip1\01\clip_image002.jpg)
-
 找不到32位的包，可能是amd64中部分源使用了i386的。所以将 /etc/apt/mirror.list 中加入以下语句，然后重新apt-mirror下载32位deb包。再次执行apt-get update 的时候就没有错误啦。
 
 ```shell
@@ -201,6 +199,4 @@ deb-i386 http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted univer
 deb-i386 http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
 deb-i386 http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universemultiverse
 ```
-
-![img](file:///C:\Users\rolex\AppData\Local\Temp\msohtmlclip1\01\clip_image004.jpg)
 

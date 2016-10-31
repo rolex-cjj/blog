@@ -16,23 +16,23 @@ tags: [TeamViewer]
 
 1. 首先，在运行里输入%appdata%，在出来的列表中删除TeamViewer文件夹。
 
-    ![QQ截图20160928133848](C:\Users\rolex\Desktop\QQ截图20160928133848.png)
+    
 
 2. 在运行中输入regedit打开注册表，分别打开HKEY_LOCAL_MACHINE\SOFTWARE\ 和HKEY_CURRENT_USER\SOFTWARE\，删除该目录下的TeamViewer项。
 
-    ![QQ截图20160928132834](C:\Users\rolex\Desktop\QQ截图20160928132834.png)
+   ​
 
 3. 由于TeamViewer是与自己网卡的mac地址绑定，所以只能更改网卡mac地址。打开设备管理器，选择“网络适配器”中自己的有线网卡，右键选择“属性”。
 
-     ![QQ截图20160928133355](C:\Users\rolex\Desktop\QQ截图20160928133355.png)
+    
 
 4. 选择“高级”->“Network Address”，选择“值”，原为不存在，任意输入12位数字。
 
-    ![QQ截图20160928133923](C:\Users\rolex\Desktop\QQ截图20160928133923.png)
+   ​
 
 5. 重新安装TeamViewer 11，安装时一定一定选择**个人/非商业用途**，打开惊喜地发现可以用啦！免费许可证！开心~~~
 
-    ![QQ截图20160928134147](C:\Users\rolex\Desktop\QQ截图20160928134147.png)
+    
 
 ## 参考文献
 
