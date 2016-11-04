@@ -159,7 +159,7 @@ $sudo vim /etc/cron.d/apt-mirror
 
 - **修改sources.list文件**
 
-现在，我们可以修改客户机/etc/apt/sources.list文件以使用本地Ubuntu Source服务器作为apt源。如果要将本机作为源服务器的话，将本机IP设置为静态IP，设置方法请查看[Ubuntu 16.04设置静态IP地址（NAT方式）](http://blog.csdn.net/lv18092081172/article/details/52081859)
+现在，我们可以修改客户机/etc/apt/sources.list文件以使用本地Ubuntu Source服务器作为apt源。如果要将本机作为源服务器的话，将本机IP设置为静态IP，设置方法请查看[Ubuntu 16.04设置静态IP地址（NAT方式）](http://blog.csdn.net/lv18092081172/article/details/52081859)（如果存在不能上网问题，请仔细检查DNS服务器 /etc/resolv.conf）
 
 本地IP为192.168.198.131，因此将客户机sources.list文件设置如下。
 
