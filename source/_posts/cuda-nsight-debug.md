@@ -14,9 +14,7 @@ All CUDA devices are used for X11 and cannot be used while debugging
 
 查阅[CUDA-GDB](http://docs.nvidia.com/cuda/cuda-gdb/index.html#using-debugger)发现：
 
-```
-Debugging a CUDA GPU involves pausing that GPU. When the graphics desktop manager is running on the same GPU, then debugging that GPU freezes the GUI and makes the desktop unusable
-```
+Debugging a CUDA GPU involves pausing that GPU. When the graphics desktop manager is running on the same GPU, then debugging that GPU freezes the GUI and makes the desktop unusable。
 
 #### **解决办法**
 

@@ -12,7 +12,13 @@ git **commit** -m "instruction" 提交到本地仓库
 
 git **status**  查看是否有文件被修改过
 
-git **diff**  file查看修改内容
+git **diff**  file 工作区与暂存区的比较
+
+git diff --cached 暂存区与本地库比较
+
+git diff HEAD file 工作区域本地库比较
+
+<!--more-->
 
 git **log** 查看提交历史，以便确定要回退到哪个版本
 
@@ -23,8 +29,6 @@ git log --graph 可以看到分支合并图
 git **reset** --hard commit-id 回退到历史版本
 
 git reset HEAD file 把暂存区的修改回退到工作区
-
-<!--more-->
 
 git **reflog** 查看命令历史，以便确定要回到未来的哪个版本
 
