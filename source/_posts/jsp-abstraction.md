@@ -7,7 +7,7 @@ tags: [jsp]
 ### **JSP页面生命周期**
 
 
- ![QQ截图20161026164614](E:\workspace\hexo\image\QQ截图20161026164614.png)
+ ![](http://ohjnxvaxm.bkt.clouddn.com/jsp-lifetime.png)
 
 <!--more-->
 

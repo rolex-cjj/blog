@@ -45,7 +45,7 @@ windows平台可能push过程中会提示输入Github的用户名和Github的密
 
 **Note:**
 
-为了在另一台电脑上配置更加方便，严重建议把Hexo博客目录下_config.yml文件复制粘贴一份，并重命名为hexo_config.yml；把themes目录下你用到主题目录下的_config.yml文件也复制一份，并粘贴到**博客根目录**，并命名为theme_config.yml。原因是我们上传的时候，我们自己安装的themes如：[yilia](https://github.com/rolex-cjj/hexo-theme-yilia.git)，它的'yilia'目录并不能上传，所以我们需要把这两个配置文件都保存下来在进行同步工作。
+为了在另一台电脑上配置更加方便，严重建议把Hexo博客目录下config.yml文件复制粘贴一份，并重命名为hexo_config.yml；把themes目录下你用到主题目录下的config.yml文件也复制一份，并粘贴到**博客根目录**，并命名为theme_config.yml。原因是我们上传的时候，我们自己安装的themes如：[yilia](https://github.com/rolex-cjj/hexo-theme-yilia.git)，它的yilia目录并不能上传，所以我们需要把这两个配置文件都保存下来在进行同步工作。
 
 ## B电脑从Github仓库取回Hexo到本地
 

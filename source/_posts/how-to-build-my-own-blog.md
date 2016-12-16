@@ -8,9 +8,9 @@ tags: [github,hexo,blog]
 
 ## 配置github
 
-**注册github账号**
+### **注册github账号**
 
-**配置SSH-KEY**
+### **配置SSH-KEY**
 
 打开git bash，执行以下命令
 
@@ -26,7 +26,7 @@ $ ssh-keygen -t rsa -C "youremail@163.com"
 
 <!--more-->
 
-**建立仓库**
+### **建立仓库**
 
 建立与你用户名对应的仓库，仓库名为【your_user_name.github.io】
 
@@ -36,7 +36,7 @@ $ ssh-keygen -t rsa -C "youremail@163.com"
 
 ## 安装Hexo
 
-**安装**
+### **安装**
 
 打开git bash，执行如下命令
 
@@ -44,7 +44,7 @@ $ ssh-keygen -t rsa -C "youremail@163.com"
 $ npm install -g hexo
 ```
 
-**部署**
+### **部署**
 
 - **Setup your blog**
 
@@ -190,7 +190,7 @@ git config --global user.name "Your Name"
 
 当部署完成后，在浏览器中打开http://rolex-cjj.github.io/（https://rolec-cjj.github.io/）, 正常显示网页，表明部署成功。
 
-**总结部署步骤**
+### **总结部署步骤**
 
 每次部署的步骤，可按以下三步来进行。
 
@@ -200,7 +200,7 @@ $ hexo generate
 $ hexo deploy
 ```
 
-**本地调试**
+### **本地调试**
 
 在执行下面的命令后
 
@@ -217,7 +217,7 @@ $ hexo s #启动本地服务，进行文章预览调试
 $ hexo s -g
 ```
 
-**主题安装**
+### **主题安装**
 
 Hexo提供了很多主题，参见 [Themes](https://hexo.io/themes/)，本步骤以yilia主题为例
 
@@ -268,6 +268,8 @@ $ hexo deploy
 [Hexo搭建Github静态博客](http://www.cnblogs.com/zhcncn/p/4097881.html)
 
 [Windows下一步步搭建自己的独立博客——使用 GitHub Pages + Hexo 基础教程（一）](http://www.jianshu.com/p/985d07d88ef4)
+
+[好看的hexo主题](https://www.zhihu.com/question/24422335)
 
 ## 友情链接
 
