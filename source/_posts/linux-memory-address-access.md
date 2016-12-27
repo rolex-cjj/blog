@@ -81,7 +81,8 @@ linux可以用/proc 文件系统和 pmap,ps工具查看给定进程的内存空�
 
    ```shell
    lxb@lxb-Lenovo:~$ ps aux|grep studio.sh
-   lxb      10901  0.0  0.0   4400   696 pts/2    S+   09:09   0:00 /bin/sh /home/lxb/android_studio_environment/android-studio/bin/studio.sh
+   lxb      10901  0.0  0.0   4400   696 pts/2    S+   09:09   0:00 /bin/sh\
+   >/home/lxb/android_studio_environment/android-studio/bin/studio.sh
    lxb      15793  0.0  0.0  13612   988 pts/5    S+   12:59   0:00 grep --color=auto studio.sh
    ```
 
