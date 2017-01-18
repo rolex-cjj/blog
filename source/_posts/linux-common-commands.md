@@ -6,15 +6,15 @@ tags: [linux]
 
 学习linux是一个很漫长的过程，需要不断地动手练习才能灵活使用它。
 
-骐宝宝爱你~~
+<!--骐宝宝爱你~~-->
 
 ### **基础指令**
 
-date、cal、bc(计算器)、
+date、cal、bc(计算器)
 
 ### **文件与目录管理**
 
-touch、mkdir、cp(在本机进行拷贝不能跨服务器)、scp(scp传输是加密的,基于ssh登陆进行安全的远程文件拷贝scp local_file remote_username@remote_ip:remote_file)、mv(相同目录下使用为重命名，不同目录下为剪切)、rm(rm -rf一定要少用!!!深受其害!!! ~~o(>_<)o ~~)、file(查看文件类型)、pwd(查看当前路径)、ls(ls -l -a -h)、whoami(目前身份)、
+touch、mkdir、cp(在本机进行拷贝不能跨服务器)、scp(scp传输是加密的,基于ssh登陆进行安全的远程文件拷贝,win下有pscp)、mv(相同目录下使用为重命名，不同目录下为剪切)、rm(rm -rf一定要少用!!!深受其害!!! ~~o(>_<)o ~~)、file(查看文件类型)、pwd(查看当前路径)、ls(ls -l -a -h)、whoami(目前身份)
 
 ### **链接命令**
 
@@ -32,7 +32,7 @@ locate是根据数据库/var/lib/mlocate/查找文件，不用读取硬盘，速
 
 man、--help、help、info、/usr/share/doc
 
-man常用命令有man man , man -f man(=whatis), man -k man(=apropos)。help只能用来查找shell内部命令。info命令行模式的网页显示数据，内容较多，不常用。判断是否为shell内部命令可先用whereis查看，不能列出命令位置的为shell内部命令。/usr/share/doc下的数据主要是以软件包为主的说明文档。
+man常用命令有man man , man -f man(=whatis), man -k man(=apropos)。help只能用来查找shell内部命令。info命令行模式的网页显示数据，内容较多，不常用。判断是否为shell内部命令可先用whereis或者type查看。/usr/share/doc下的数据主要是以软件包为主的说明文档。
 
 ### **关机重启**
 
@@ -50,7 +50,7 @@ cat(一次性显示，连接文件)、tac、more(向下翻页)、less(可上下�
 
 zip/unzip、gzip/gunzip(=gzip -d)、bzip2/bunzip2(bzip2 -d)、tar(-c -v -f  -t -x -j -z)
 
-zip常用命令zip test.zip test和zip -r test.zip test(压缩目录)，压缩后源文件存在。gzip常用gzip test和gzip -r test，gzip -r test可以压缩目录及子目录下的文件，不能压缩目录本身，压缩后源文件消失。bzip2常用bzip test(不保留源文件)和bzip -k test(保留源文件)，不能压缩目录。tar为打包命令，tar -cvf test.tar test(c打包，v显示打包过程，f指定打包文件名)，tar -xvf test.tar(x解打包)，tar -zcvf  test.tar.gz test，tar -jcvf  test.tar.bz2 test(源文件部分可以写以空格分割的多个文件)，tar -jxvf  test.tar.bz2 -C /tmp(解压到指定文件夹)，还可以实现解打包单一文件。
+zip常用命令zip test.zip test和zip -r test.zip test(压缩目录)，压缩后源文件存在。gzip常用gzip test和gzip -r test，gzip -r test可以压缩目录及子目录下的文件，不能压缩目录本身，压缩后源文件消失。bzip2常用bzip test(不保留源文件)和bzip -k test(保留源文件)，不能压缩目录。tar为打包命令，tar -cvf test.tar test(c打包，v显示打包过程，f指定打包文件名)，tar -xvf test.tar(x解打包)，tar -zcvf  test.tar.gz test，tar -jcvf  test.tar.bz2 test(源文件部分可以写以空格分割的多个文件)，tar -jxvf  test.tar.bz2 -C /tmp(解压到指定文件夹)，tar -jxv -f test.tar.bz2 待解开档名(相对路径)(实现解打包单一文件)。
 
 ### **磁盘目录容量**
 
@@ -68,7 +68,7 @@ dump、dd
 
 nano、vi、vim
 
-vim真是个好东西啊！一定要熟练运用，其Visual block(常用v, y, yy, d, dd, p)，多档案编辑(:n, :N, :files)，多窗口功能(:sp {filename}, [ctrl]+w+↓/↑/q, )，字符串搜索与替换(:n1,n2s/word1/word2/g)非常强大，常用命令还有1G, G, :set nu, :r filename, :! command。
+vim真是个好东西啊！一定要熟练运用，其Visual block(常用v, y, yy, d, dd, p)，多档案编辑(:n, :N, :files)，多窗口功能(:sp {filename}, [ctrl]+w+↓/↑/q)，字符串搜索与替换(:n1,n2s/word1/word2/g)非常强大，常用命令还有1G, G, :set nu, :r filename, :! command。
 
 ![](http://ohjnxvaxm.bkt.clouddn.com/vim-commands.jpg)
 
@@ -92,7 +92,7 @@ alias、history、source(.)、type
 
 **撷取命令**
 
-cut(同一行里面的数据进行分解-d、-f)、grep(取出有关键字的行grep -n)、sed(-n p)、awk(处理每一行字段内的数据 )、
+cut(同一行里面的数据进行分解-d、-f)、grep(取出有关键字的行grep -n)、sed(-n p)、awk(处理每一行字段内的数据 )
 
 awk常用用法：awk 'condition{function}…' 如awk '{print \$1 "\t" \$3}'，awk关键字有NF、NR、FS、BEGIN、END
 
@@ -126,7 +126,7 @@ diff(以行为单位，新旧档案纯文本对比)、cmp(以字节为单位，�
 
 **基础版**
 
-^、$、[]、[^]、.、*(重复前一个0次或多次)、.\*(常用组合，0个或多个任意字符)、\\\{m,n\\}(限定范围)、
+^、$、[]、[^]、.、\* (重复前一个0次或多次)、.*(常用组合，0个或多个任意字符)、\\\{m,n\\}(限定范围)
 
 ![](http://ohjnxvaxm.bkt.clouddn.com/regex.png)
 
@@ -165,3 +165,7 @@ free(内存使用情况)、lsb_release -a(显示操作系统版本信息，Linux
 ./configure、make、makefile、make check、make install、gcc(-o、-L/path、-I/usr/include)、ldd(程序的动态函式库解析)、dpkg、rpm(-ivh、-qa、-Va)、
 
 ![](http://ohjnxvaxm.bkt.clouddn.com/software-manage.png)
+
+### 远程连接
+
+ssh、scp(windows下有pscp)
