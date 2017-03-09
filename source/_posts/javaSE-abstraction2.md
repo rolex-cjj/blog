@@ -6,7 +6,9 @@ tags: [java]
 
 ### **String**
 
-String类具有**不可变性**。使用 StringBuilder 或 StringBuffer 就可以避免这个问题。StringBuilder 和StringBuffer，它们基本相似，不同之处，StringBuffer 是线程安全的，而 StringBuilder 则没有实现线程安全功能，所以性能略高。因此一般情况下，如果需要创建一个内容可变的字符串对象，应优先考虑使用 StringBuilder 类。
+String类具有**不可变性**。使用 StringBuilder 或 StringBuffer 就可以避免这个问题。
+
+StringBuilder 和StringBuffer，它们基本相似，不同之处，StringBuffer 是线程安全的，而 StringBuilder 则没有实现线程安全功能，所以性能略高。因此一般情况下，如果需要创建一个内容可变的字符串对象，应优先考虑使用 StringBuilder 类。
 
 ### **包装类**
 
@@ -46,6 +48,8 @@ Integer x = new Integer(8);
 int i = x.intValue();//手动拆箱
 int j = x;//自动拆箱
 ```
+自动拆箱/装箱发生在基本类型值与对象需要相互转换的时候，也适用于表达式计算。在表达式中，对象会被自动拆箱参与计算，如果有必要，表达式的结果会被重新装箱。
+
 ### **基本类型和字符串转换**
 
 基本类型转换为字符串有三种方法：
@@ -71,36 +75,95 @@ String str = "8";
 int d = Integer.parseInt(str);
 int e = Integer.valueOf(str);
 ```
-### **Comparator和Comparable在排序中的应用**
+### **java线程**
 
-**Comparator**
+![](http://ohjnxvaxm.bkt.clouddn.com/thread-status.JPG)
 
-用于定义**临时**比较规则，而不是默认比较规则。强行对某个对象collection进行整体排序的比较函数，可以将Comparator传递给Collections.sort或者Arrays.sort。
+#### **创建多线程**
 
-接口方法：
+创建线程有两种方法，继承Thread类和实现Runnable接口，使用接口方式可以避免单继承的局限。关键性操作有三个：
 
-```JAVA
-/**
-*@return o1小于、等于或大于o2，分别返回负整数、零或正整数。
-*/
-int compare(Object o1, Object o2);
+- 定义用户线程，即定义用户线程的run方法。
+- 适当的时候建立用户线程实例，也就是用new来创建对象。
+- 启动线程，调用线程对象的start方法。
+
+继承Thread类方式
+
+```java
+public class ThreadDemo1 extends Thread {  
+    private int countDown = 10;  
+  
+    @Override  
+    // 在run方法中定义任务  
+    public void run() {  
+        ……
+    }  
+  
+    public static void main(String[] args) {  
+        ThreadDemo1 thread1 = new ThreadDemo1();
+        ThreadDemo1 thread2 = new ThreadDemo1();
+        thread1.start(); 
+        thread2.start();   
+        // 由于start方法迅速返回，所以main线程可以执行其他的操作,此时有两个独立的线程在并发运行  
+        ……
+    }  
+}  
 ```
 
-**Comparable**
+实现Runnable接口方式
 
-实现了该接口表示这个类的实例可以比较大小，可以进行自然排序，定义了**默认**的比较规则。
-
-实现此接口的对象列表（和数组）可以通过Collections.sort 或 Arrays.sort进行自动排序。
-
-接口方法：
-
-```JAVA
-/**
-* @return 该对象小于、等于或大于指定对象o，分别返回负整数、零或正整数。 
-*/ 
-int compareTo(Object o);
+```java
+public class TreadDemo2 implements Runnable {  
+    private int countDown = 10;  
+    @Override  
+    // 在run方法中定义任务  
+    public void run() {  
+        ……
+    }  
+  
+    public static void main(String[] args) {  
+        // Runnable中run方法是一个空方法，并不会产生任何线程行为，必须显式地将一个任务附着到线程上  
+        Thread thread1 = new Thread(new TreadDemo2());  
+        Thread thread2 = new Thread(new TreadDemo2());  
+        thread1.start();  
+      	thread2.start(); 
+        ……
+    }  
+}  
 ```
-### **java线程中断和阻塞**
+
+采用继承Thread类方式：
+（1）优点：编写简单，如果需要访问当前线程，无需使用Thread.currentThread()方法，直接使用this，即可获得当前线程。
+（2）缺点：因为线程类已经继承了Thread类，所以不能再继承其他的父类。
+采用实现Runnable接口方式：
+（1）优点：线程类只是实现了Runable接口，还可以继承其他的类。在这种方式下，可以多个线程共享同一个目标对象，所以非常适合多个相同线程来处理同一份资源的情况，从而可以将CPU代码和数据分开，形成清晰的模型，较好地体现了面向对象的思想。
+（2）缺点：编程稍微复杂，如果需要访问当前线程，必须使用Thread.currentThread()方法。
+
+#### **同步机制常用方法**
+
+java.util.concurrent.locks.Lock   lock(), unlock()
+
+java.util.concurrent.locks.ReentrantLock  ReentrantLock()
+
+java.util.concurrent.locks.Condition   await(), signalAll(), signal()
+
+java.lang.Object    synchronized, wait(), notify(), notifyAll()
+
+- **volatile**
+
+如果声明一个域为volatile，那么编译器和虚拟机就知道该域是可能被另一个线程并发更新的。volatile变量不能提供原子性。
+
+#### **线程安全类**
+
+HashTable是线程安全的，HashMap不是线程安全的。
+
+ConcurrentLinkedQueue是线程安全的，是基于链表实现的，所以他的size方法会遍历整个链表，所以不建议使用size方法。
+
+Vector是线程安全的，ArrayList不是线程安全的。
+
+StringBuffer是线程安全，StringBuilder不是线程安全的。
+
+#### **中断和阻塞**
 
 参考[Java并发编程中的阻塞和中断](https://yq.aliyun.com/articles/38430)
 
@@ -152,9 +215,230 @@ public class ThreadFlag extends Thread
 
   当线程因调用wait(),join(),sleep()等方法被阻塞时(存在不能被中断的阻塞I/O调用)，线程再调用interrupt方法会使中断状态被**清除**，当前线程会收到一个InterruptedException，使线程退出阻塞状态。**interrupt方法并不能正确停止线程**。
 
-- **volatile**
 
-如果声明一个域为volatile，那么编译器和虚拟机就知道该域是可能被另一个线程并发更新的。volatile变量不能提供原子性。
+### **泛型**
+
+#### **有界类型**
+
+在创建泛型类时，需要对类型作出限制，可以为类型参数指定一个上界，声明所有的实际类型都必须是这个超类的直接或间接子类。
+
+```java
+class classname <T extends superclass>
+```
+
+也可以使用接口作为上界，关键字仍然是extends而非implements。一个类型可以有多个限界，限界类型用"&"分隔。在多个限界中可以有多个接口，但是最多只能有一个类，且该类为限界列表中第一个。
+
+```java
+class Stats<T extends Comparable & Serializable>
+```
+
+#### **通配符使用**
+
+使用泛型类时，当调用某方法的对象和实际参数对象类型不一致时，可以使用通配符"?"。
+
+```java
+class Stats<T>
+{
+  ……
+  void doSomething(Stats <T> ob)
+  {
+    System.out.println(ob.getClass().getName());
+  }
+}
+Integer inums[] = {1,2,3,4,5};
+Stats<Integer> iobj = new Stats<Integer>(inums);
+Double dnums[] = {1.5, 2.5, 3.5, 4.5, 5.5};
+Stats<Double> dobj = new Stats<Double>(dnums);
+dobj.doSomething(iobj);//错误,形参和实参类型不同
+//此时应该将doSomething方法声明变为void doSomething(Stats<?> ob)
+```
+
+通配符是用来声明一个泛型类的变量的，而不能创建一个泛型类。
+
+#### **泛型接口**
+
+如果一个类实现了一个泛型接口，则此类也是泛型类，否则无法接受传递给接口的类型参数。下面的声明是错误的。
+
+```java
+class Myclass implements MinMax<T>
+```
+
+在类Myclass中需要使用类型参数T，而类的使用者无法将它的实际参数传递进来，所以编译器报错。但是如果实现的是泛型接口的特定类型，则此类不再是泛型类。如下。
+
+```java
+class Myclass implements MinMax<Integer>
+```
+
+#### **泛型类RTTI**
+
+泛型类也可以进行运行时类型识别。泛型类的对象总是一个特定的类型，，此时，它不再是泛型。所有的类型查询只会产生**原始类型**，无论是getClass()方法还是instanceof操作符。
+
+泛型类也可以进行运行时类型识别。泛型类的对象总是一个特定的类型，，此时，它不再是泛型。所有的类型查询只会产生原始类型，无论是getClass()方法还是instanceof操作符。
+
+例如，对象a是Generic\<Integer>类型，那么
+
+```java
+a instanceof Generic<?>
+a instanceof Generic
+```
+
+两个测试结果都为真。尖括号中只能写通配符"?"，不能写确定的类型，实际上测试时，"?"会被忽略。
+
+若b是Generic\<String>类型，getClass返回的也是原始类型。
+
+```java
+a.getClass() == b.getClass()//结果为真
+```
+
+#### **泛型类继承规则**
+
+泛型类继承规则中，即使类型参数有继承关系，对应的泛型也没有任何关系。Generic\<Number>和Generic\<Integer>之间没有任何关系。
+
+#### **类型擦除**
+
+Java泛型的处理几乎都在编译器中进行，编译器生成的bytecode是不包含泛型信息的，泛型类型信息将在编译处理是被擦除，这个过程即类型擦除。
+
+类型擦除指的是通过类型参数合并，将泛型类型实例关联到同一份字节码上。编译器只为泛型类型生成一份字节码，并将其实例关联到这份字节码上。类型擦除的关键在于从泛型类型中清除类型参数的相关信息，并且在必要的时候添加类型检查和类型转换的方法。
+类型擦除可以简单的理解为将泛型java代码转换为普通java代码，只不过编译器更直接点，将泛型java代码直接转换成普通java字节码。
+类型擦除的主要过程如下：
+
+- 将所有的泛型参数用其最左边界（最顶级的父类型）类型替换。
+- 移除所有的类型参数。
+
+泛型类的静态变量是共享的，所以静态成员和静态方法都不能使用类型参数。
+
+#### **泛型局限**
+
+- 不能使用基本数据类型，必须是类类型；
+- 不能使用泛型类异常，泛型类不能继承异常类；
+- 不能使用泛型数组；
+- 不能实例化参数类型对象，不能直接使用参数类型构造一个对象；
+
+### **集合**
+
+集合接口层次如下。
+
+```java
+java.util.Collection [I]
+  +–java.util.List [I]
+    +–java.util.ArrayList [C]
+    +–java.util.LinkedList [C]
+    +–java.util.Vector [C]
+      +–java.util.Stack [C]
+  +–java.util.Queue [I]
+  	+–java.util.PriorityQueue[C]
+  +–java.util.Set [I]
+    +–java.util.HashSet [C]
+      +–java.util.LinkedHashSet [C]
+    +–java.util.SortedSet [I]
+   	  +–java.util.TreeSet [C]
+    +–java.util.EnumSet [C]
+
+java.util.Map [I]
+  +–java.util.SortedMap [I]
+    +–java.util.TreeMap [C]
+  +–java.util.Hashtable [C]
+  +–java.util.HashMap [C]
+    +–java.util.LinkedHashMap [C]
+    +–java.util.WeakHashMap [C]
+
+[I]：接口
+[C]：类
+```
+
+#### **Iterator**
+
+对于Iterator接口对象，调用next()方法之前必须先调用hasNext()方法进行测试，否则到了集合末尾，next()方法会抛出异常。
+
+```java
+Iterator iter = c.iterator();
+while(iter.hasNext()){
+	Object obj = iter.next();
+}
+```
+
+迭代器的指针并不是直接指向某个元素，而是位于各个元素之间。使用remove()时，删除的是上次调用next()返回的元素，如果要删除某个位置上的元素，首先要跳过这个元素。调用remove()之前，必须保证调用了next()方法，不能连着两次remove()。
+
+#### **常用类**
+
+对于LinkedList，如果要遍历它，尽量使用for-each循环或者迭代器，不要使用get(int index)方法。
+
+ArrayList长于随机访问元素，但在List中插入删除元素较慢；LinkedList通过代价较低的在List中插入删除元素，提供了优化的顺序访问，在随机访问方面相对较慢。
+
+从HashSet中添加删除元素比从ArrayList中快。
+
+TreeSet是一个有序树，排序算法比优先队列的插入排序法快很多。
+
+在Collection中，sort()方法实现了归并排序，binarySearch()实现了二分查找。
+
+Vector与ArrayList相似，但是它是线程安全的，在单线程下推荐使用ArrayList。
+
+Hashtable与HashMap相似，但是它是线程安全的，在单线程下推荐使用HashMap。
+
+#### **枚举类**
+
+```java
+enum Size{
+  SMALL("S"),MEDIUM("M"),LARGE("L"),EXTRA_LARGE("XL");
+  private String abbreviation;
+  //定义私有构造器。无传入参数
+  private Size()
+    {
+      this(null);
+    }
+  //定义私有构造器，传入字符串abbreviation作为参数
+  private Size(String abbreviation)
+    {
+      this.abbreviation = abbreviation;
+    }
+  //定义公有的getAbbreviation方法，得到abbreviation的值
+  public String getAbbreviation(){
+    return abbreviation;
+  }
+}
+```
+
+这个Size类的构造方法都是私有的，所以不能在类外用Size创建对象。其中的
+
+```java
+SMALL("S")
+```
+
+相当于
+
+```java
+public static final Size SMALL = new Size("S");
+```
+
+### **Comparator和Comparable在排序中的应用**
+
+#### **Comparator**
+
+用于定义**临时**比较规则，而不是默认比较规则。强行对某个对象collection进行整体排序的比较函数，可以将Comparator传递给Collections.sort或者Arrays.sort。
+
+接口方法：
+
+```JAVA
+/**
+*@return o1小于、等于或大于o2，分别返回负整数、零或正整数。
+*/
+int compare(Object o1, Object o2);
+```
+
+#### **Comparable**
+
+实现了该接口表示这个类的实例可以比较大小，可以进行自然排序，定义了**默认**的比较规则。
+
+实现此接口的对象列表（和数组）可以通过Collections.sort 或 Arrays.sort进行自动排序。
+
+接口方法：
+
+```JAVA
+/**
+* @return 该对象小于、等于或大于指定对象o，分别返回负整数、零或正整数。 
+*/ 
+int compareTo(Object o);
+```
 
 ### **Class类的使用**
 
@@ -162,15 +446,18 @@ public class ThreadFlag extends Thread
 
 ```java
 Class c1 = Foo.class;
+Class c = Integer.TYPE;
 ```
 
-第一种表示方式，告诉我们每个类都有一个隐含的静态成员class。
+第一种表示方式，告诉我们每个类都有一个隐含的静态成员class，T.class代表匹配的类对象。
+
+如果是基本类型的封装类，还提供了一个TYPE作为类标记。
 
 ```java
 Class c2 = foo1.getClass();
 ```
 
-第二种表示方式，已经知道该类的对象通过getClass方法。
+第二种表示方式，已经知道该类的对象可以通过getClass方法。
 
 官网称c1,c2表示了Foo类的**类类型**（class type）。一个类只能是Class类的一个实例对象，即c1==c2为true。
 
@@ -222,7 +509,7 @@ javac Word.java
 javac OfficeBetter.java //编译无错
 java OfficeBetter Word  //运行时加载
 ```
-### **java获取方法信息**
+### **反射获取运行时类信息**
 
 ```java
 Class c1 = int.class;
@@ -233,7 +520,7 @@ System.out.println(c2.getName());
 System.out.println(c3.getSimpleName());//不包含包名的类名称
 ```
 
-**获取方法信息：**
+#### **获取方法信息**
 
 ```java
 public class ClassUtil{
@@ -262,9 +549,7 @@ public class ClassUtil{
   }
 }
 ```
-### **java获取成员变量构造函数信息**
-
-**获取成员变量信息：**
+#### **获取成员变量信息**
 
 ```java
 /*
@@ -287,7 +572,7 @@ public class ClassUtil{
   }
 ```
 
-**获取构造函数信息：**
+#### **获取构造函数信息**
 
 ```java
 /*
@@ -310,7 +595,7 @@ public class ClassUtil{
     }
   }
 ```
-### **方法反射的基本操作**
+#### **方法反射的基本操作**
 
 ```java
 public class MethodDemo1 {
@@ -350,6 +635,127 @@ class A{
   }
 }
 ```
+#### **执行构造函数创建新对象**
+
+执行构造函数和普通方法有3个区别：
+
+- 用getConstructor()获取构造方法替代getMethod()；
+- 用newInstance()调用构造方法替代invoke()；
+- 不需要获取返回值；
+
+```java
+import java.lang.reflect.*;
+public class invokeConstructor{
+  public invokeConstructor(){
+    System.out.println("This is a constructor without parameter.");
+    }
+  public invokeConstructor(int a, int b)
+    {
+      System.out.println("a="+a+"b="+b);
+    }
+  public static void main(String args[])
+    {
+      try{
+        Class cls = Class.forName("invokeConstructor");
+        //创建参数类型列表
+        Class partypes[] = new Class[2];
+        partypes[0] = Integer.TYPE;
+        partypes[1] = Integer.TYPE;
+        //创建构造方法对象
+        Constructor ct = cls.getConstructor(partypes);
+        //创建实际参数数组
+        Object arglist[] = new Object[2];
+        arglist[0] = new Integer(37);
+        arglist[1] = new Integer(47);
+        //调用构造方法创建对象
+        Object retoobj = ct.newInstance(arglist);
+       }catch (Throwable e){
+         System.out.println(e);
+       }
+    }
+}
+```
+
+利用这种方法可以在程序运行时动态创建对象，而不是在编译的时候创建对象。
+
+#### **改变属性值**
+
+```java
+import java.lang.reflect.*;
+public class changeFields{
+  public double d;
+  public static void main(String args[])
+    {
+      try{
+        Class cls = Class.forName("changeFields");
+        //根据变量名获取Field对象
+        Field fld = cls.getField("d");
+        //用普通方法创建对象，以供验证
+        changeFields f2obj = new changeFields();
+        System.out.println("d = " + f2obj.d);
+        //设置变量值
+        fld.setDouble(f2obj, 12.34);
+        System.out.println("d = " + f2obj.d);
+      }catch(Throwable e)
+        {
+          System.out.println(e);
+        }
+    }
+}
+```
+
+#### **使用数组**
+
+```java
+import java.lang.reflect.*;
+public class useArray{
+  public static void main(String args[])
+    {
+      try{
+        //加载String类
+        Class cls = Class.forName("java.lang.String");
+        //创建String类型的数组对象，10个元素
+        Object arr = Array.newInstance(cls, 10);
+        //为0元素赋值
+        Array.set(arr, 0, "this is a test");
+        //获取0元素值
+        String s = (String)Array.get(arr, 0);
+        System.out.println("s = " + s);
+      }catch(Throwable e)
+        {
+          System.out.println(e);
+        }
+    }
+}
+```
+
+下面提供一个更复杂的例子
+
+```java
+import java.lang.reflect.;
+public class useArray2{  
+  public static void main(String args[])    
+  {      
+    try{        
+      int dim[] = {5,10, 15};        
+      //创建一个510*15的3维数组对象        
+      Object arr = Array.newInstance(Integer.TYPE, dim);        
+      //获取arr[3]        
+      Object arrobj = Array.get(arr, 3);        
+      //获取arr3        
+      arrobj = Array.get(arrobj, 5);        
+      //设置数组元素arrobj[10]为37        
+      Array.setInt(arrobj, 10, 37);        
+      int arrcast[] = (int [])arr;       
+      System.out.println(arrcast3[10]);      
+    }catch(Throwable e)        
+    {          
+      System.out.println(e);       
+    }   
+  }
+}
+```
+
 ### **通过反射了解集合泛型本质**
 
 反射的操作都是**编译之后**的操作。
@@ -380,3 +786,41 @@ System.out.println(list1);
 * }//现在不能这么遍历
 */
 ```
+### **数据库连接**
+
+**加载驱动**：Class.forName("com.mysql.jdbc.Driver")
+
+**提供JDBC连接的URL**：String url = "jdbc:mysql://localhost:3306/test" 
+
+**创建数据库连接**：Connection con = DriverManager.getConnection(String url , String username , String password)
+
+**创建一个Statement**，执行SQL语句用： Statement stmt = con.createStatement()
+
+**执行SQL语句**：
+
+Statement接口提供了三种执行SQL语句的方法：executeQuery 、executeUpdate和execute   
+
+```sql lite
+ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句，返回一个结果集（ResultSet）对象。  
+int executeUpdate(String sqlString)：用于执行INSERT、UPDATE或DELETE语句以及SQL DDL语句，如：CREATE TABLE和DROP TABLE等   
+execute(sqlString):用于执行返回多个结果集、多个更新计数或二者组合的语句。   
+```
+```java
+ResultSet rs = stmt.executeQuery("SELECT * FROM ...");   
+int rows = stmt.executeUpdate("INSERT INTO ...");   
+boolean flag = stmt.execute(String sql); 
+```
+**处理结果：**
+
+```java
+rs.next();
+rs.getString("name");
+```
+
+**关闭连接：**
+
+关闭记录集：rs.close
+
+关闭声明：stmt.close()
+
+关闭连接对象：conn.close()
