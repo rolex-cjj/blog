@@ -66,13 +66,13 @@ int add(int a, int b)
 #### **负数表示**
 
 ```java
-int negtive(int a)   //取补码  
+int negtive(int a)   //  
 {  
     return add(~a, 1);  
 } 
 ```
 
-二进制中，一个负数可以表示为正数的补码形式，即正数的反码加1。
+二进制中，一个负数可以表示为正数各位取反加1。
 
 #### **减法运算**
 

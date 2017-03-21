@@ -1,6 +1,6 @@
 ---
 title: JAVA基础知识点摘录2
-date: 2016-10-18 08:44:06
+date: 2017-1-18 08:44:06
 tags: [java]
 ---
 
@@ -9,6 +9,8 @@ tags: [java]
 String类具有**不可变性**。使用 StringBuilder 或 StringBuffer 就可以避免这个问题。
 
 StringBuilder 和StringBuffer，它们基本相似，不同之处，StringBuffer 是线程安全的，而 StringBuilder 则没有实现线程安全功能，所以性能略高。因此一般情况下，如果需要创建一个内容可变的字符串对象，应优先考虑使用 StringBuilder 类。
+
+除了String类，所有数值类，Integer,Double,Character,BigInteger也是不可变的。
 
 ### **包装类**
 
@@ -412,24 +414,9 @@ public static final Size SMALL = new Size("S");
 
 ### **Comparator和Comparable在排序中的应用**
 
-#### **Comparator**
-
-用于定义**临时**比较规则，而不是默认比较规则。强行对某个对象collection进行整体排序的比较函数，可以将Comparator传递给Collections.sort或者Arrays.sort。
-
-接口方法：
-
-```JAVA
-/**
-*@return o1小于、等于或大于o2，分别返回负整数、零或正整数。
-*/
-int compare(Object o1, Object o2);
-```
-
 #### **Comparable**
 
-实现了该接口表示这个类的实例可以比较大小，可以进行自然排序，定义了**默认**的比较规则。
-
-实现此接口的对象列表（和数组）可以通过Collections.sort 或 Arrays.sort进行自动排序。
+实现了该接口表示这个类的实例可以比较大小，可以进行自然排序，定义了**默认**的比较规则。实现此接口的对象列表（和数组）可以通过Collections.sort 或 Arrays.sort进行自动排序。是内部比较器。
 
 接口方法：
 
@@ -438,6 +425,131 @@ int compare(Object o1, Object o2);
 * @return 该对象小于、等于或大于指定对象o，分别返回负整数、零或正整数。 
 */ 
 int compareTo(Object o);
+```
+
+```java
+import java.util.Arrays;
+
+public class ComparableTest {
+    public static void main(String[] args) {
+        Person[] persons = new Person[]{
+            new Person(20, "P1"),
+            new Person(60, "P2"),
+            new Person(50, "P3"),
+            new Person(40, "P4")
+        };
+        Arrays.sort(persons);
+        System.out.println();
+        //下面代码的结果一样
+        //List<Person> personList = Arrays.asList(persons);
+        //Collections.sort(personList);
+        //System.out.println(personList);
+    }
+}
+
+class Person implements Comparable<Person> {
+    private int age;
+    private String name;
+    public Person(int age, String name) {
+        this.age = age;
+        this.name = name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    //实现Comparable接口的compareTo方法
+    @Override
+    public int compareTo(Person o) {
+        return this.age - o.age;
+    }
+    
+    @Override
+    public String toString() {
+        return "Person[name=" + name + ", age=" + age + "]";
+    }
+}
+```
+
+#### **Comparator**
+
+用于定义**临时**比较规则，而不是默认比较规则。实现该接口的类都是一个比较器，一般在要比较的对象类型不支持自比较或者自比较函数不能满足要求时使用。可以将Comparator传递给Collections.sort或者Arrays.sort。使用此接口时，不需要在比较的类型中实现比较过程，而是把这个过程转移到了Comparator接口的compare方法中。是外部比较器。
+
+接口方法：
+
+```JAVA
+/**
+*@return o1小于、等于或大于o2，分别返回负整数、零或正整数。
+*/
+int compare(Object o1, Object o2)
+boolean equals(Object obj);
+```
+
+```java
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class ComparableTest {
+    public static void main(String[] args) {
+        Person[] persons = new Person[]{
+            new Person(20, "P1"),
+            new Person(60, "P2"),
+            new Person(50, "P3"),
+            new Person(40, "P4")
+        };
+        //Arrays.sort方法不支持使用Comparator比较器了，这里只能使用Collections.sort来排序
+        List<Person> personList = Arrays.asList(persons);
+        System.out.println("Before sort: \r\n" + personList);
+        //这里，将一个比较器（Comparator）传递给sort方法作为参数，按照里面的比较逻辑对Person进行排序
+        Collections.sort(personList, new PersonComparator());
+        System.out.println("After sort: \r\n" + personList);
+    }
+}
+
+//被比较的类型不需要实现任何接口
+class Person { 
+    private int age;
+    private String name;
+    public Person(int age, String name) {
+        this.age = age;
+        this.name = name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    @Override
+    public String toString() {
+        return "Person[name=" + name + ", age=" + age + "]";
+    }
+}
+
+//这是一个比较器，用于比较Person对象
+class PersonComparator implements Comparator<Person> {
+    @Override
+    public int compare(Person o1, Person o2) {
+        //两个Person对象的比较过程，当然，这里可以实现更多更复杂的比较过程
+        return o1.getAge() - o2.getAge(); 
+    }
+}
 ```
 
 ### **Class类的使用**
@@ -824,3 +936,49 @@ rs.getString("name");
 关闭声明：stmt.close()
 
 关闭连接对象：conn.close()
+
+### **注解**
+
+注释是程序员对源代码的类，方法，属性等做的一些记忆或提示性描述(比如这个方法是做什么用的)，是给人来看的。
+注解，语法以@开头，是Java编译器可以理解的部分，是给编译器看的。
+**JDK自带注解**
+@Override
+@Deprecated(过时，弃用的)
+@Suppvisewarnings(忽略某些警告)
+
+- deprecation 使用了不赞成使用的类或方法时的警告
+- unchecked 执行了未检查的转换时警告
+- fallthrough 当使用switch操作时case后未加入break操作，而导致程序继续执行其他case语句时出现的警告
+- path 当设置一个错误的类路径、源文件路径时出现的警告
+- serial 当在可序列化的类上缺少serialVersionUID定义时的警告
+- fianally 任何finally子句不能正常完成时警告
+- all 关于以上所有情况的警告
+
+**注解分类**
+
+- 源码注解，源码中存在，.class文件中不存在；
+- 编译时注解，源码和class文件中都存在；
+- 运行时注解，运行阶段依然起作用；
+- JDK内置注解
+- 第三方注解
+- 自定义注解
+
+**元注解**
+
+元注解是注解的注解。
+@Target 注解作用域，表示该注解用于什么地方，使用在类上，方法上，构造函数，属性等
+@Retention 生命周期(源码，编译，运行)
+@Inherited 允许子类继承父类中的注解，不会继承方法中注解，对于接口实现无效
+@Documented 将此注解包含在javadoc中
+
+使用@interface定义注解
+public @inerface Description{
+String desc();
+String author();
+int age() default 18;
+}
+成员以无参无异常方式定义声明，可用default为成员指定一个默认值，成员类型受限制，包括基本类型，String,Class,Annotation,Enummeration。只有一个成员时，成员名只能为value(),使用时可以忽略成员名和=。注解类可以没有成员，成为标识注解。
+
+**注解使用**
+@<注解名>(<成员名1>=<成员值1>,<成员名2>=<成员值2>)
+@Description(desc="",author="",age=18)

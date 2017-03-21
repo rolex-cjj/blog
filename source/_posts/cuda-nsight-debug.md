@@ -20,7 +20,7 @@ Debugging a CUDA GPU involves pausing that GPU. When the graphics desktop manage
 
 如果不用图形界面的话，可以直接停止X11 server通过停止lightdm服务；
 
-如果要用图形界面的话，需要使用**cuda software preeption**.
+如果要用图形界面的话，需要使用**cuda software preemption**.
 
 <!--more-->
 

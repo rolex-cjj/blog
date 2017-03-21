@@ -14,6 +14,8 @@ Servlet是JSP的前身。是在服务器端运行的小程序。一个Servlet就
 
 
 
+<!--more-->
+
 #### **生命周期**
 
 1）初始化阶段，调用init方法，在servlet整个生命周期内，只调用一次。在执行构造方法之后。
@@ -32,8 +34,6 @@ Servlet是JSP的前身。是在服务器端运行的小程序。一个Servlet就
 
 
  ![](http://ohjnxvaxm.bkt.clouddn.com/jsp-lifetime.png)
-
-<!--more-->
 
 ### **JSP指令**
 

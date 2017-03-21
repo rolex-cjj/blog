@@ -1,6 +1,6 @@
 ---
 title: JAVA基础知识点摘录1
-date: 2016-10-12 10:15:12
+date: 2016-11-12 10:15:12
 tags: [java]
 ---
 
@@ -34,6 +34,27 @@ tags: [java]
 | protected |  √   |     √     |  √   |  X   |
 |  default  |  √   |     √     |  X   |  X   |
 |  private  |  √   |     X     |  X   |  X   |
+
+特别需要注意的，private修饰符对于**同一个类的任何实例**可见，对子类不可见，用于所在类本身。
+
+```java
+public class Complex{
+  private double real;
+  private double imaginary;
+  public Complex(double r, double i){
+    this.real = r;
+    this.imaginary = i;
+  }
+  public boolean equals(Object o){
+    if(this == o) return true;
+    if(o == null || getClass() != o.getClass) return false;
+    Complex complex = (Complex)o;
+    if(Double.compare(complex.imaginary, imaginary) !=0) return false;
+    if(Double.compare(complex.real, real) !=0) return false;
+    return true;
+  }
+}
+```
 
 ### **局部变量和成员变量**
 
@@ -327,6 +348,47 @@ Out.In in = out.new In();
 
 ```java
 Out.In in = new Out.In();
+```
+
+#### **匿名内部类**
+
+只要一个类是抽象的或是一个接口，那么其子类中的方法都可以使用匿名内部类来实现。最常用的情况就是在多线程的实现上。
+
+**匿名内部类基本实现**
+
+```java
+abstract class Person {
+    public abstract void eat();
+}
+ 
+public class Demo {
+    public static void main(String[] args) {
+        Person p = new Person() {
+            public void eat() {
+                System.out.println("eat something");
+            }
+        };
+        p.eat();
+    }
+}
+```
+
+**Runnable接口的匿名内部类实现**
+
+```java
+public class Demo {
+    public static void main(String[] args) {
+        Runnable r = new Runnable() {
+            public void run() {
+                for (int i = 1; i <= 5; i++) {
+                    System.out.print(i + " ");
+                }
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
+    }
+}
 ```
 
 ###**java I/O操作类**
