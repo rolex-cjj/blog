@@ -58,7 +58,7 @@ public class Complex{
 
 ### **局部变量和成员变量**
 
-在方法内定义的变量为局部变量，局部变量和累成员变量十分相似，但在使用上区别很大。
+在方法内定义的变量为局部变量，局部变量和类成员变量十分相似，但在使用上区别很大。
 
 - 局部变量没有访问修饰符，不能用public、private、protected来修饰
 - 局部变量不能用static修饰，没有”静态局部变量“
@@ -67,8 +67,6 @@ public class Complex{
 - 局部变量可以和成员变量同名，在使用时，局部变量具有更高的优先级
 
 ### **foreach中犯的错误**
-
-今天写了一段自以为不会出错的代码。
 
 
 ```java
@@ -83,7 +81,7 @@ public class test4 {
 ```
 
 
-结果发现数组中值都为0。通过查看java编译后的字节码发现，这几句代码是将数组引用副本中的值取出放在栈顶，然后从栈顶取出变量放在本地变量3中，然后把55放在栈顶，再把55取出放在本地变量3中，从始至终的操作都是在本地局部变量中的，并没有对原来的数值产生任何影响。
+结果发现数组中值都为0。通过查看java编译后的字节码发现，这几句代码是将数组引用副本中的值取出放在栈顶，然后从栈顶取出变量放在本地变量j中，然后把55放在栈顶，再把55取出放在本地变量j中，从始至终的操作都是在本地局部变量中的，并没有对原来的数值产生任何影响。
 
  故foreach语句是for语句特殊情况下的增强版本，简化了编程，提高了代码的可读性和安全性（不用怕数组越界）。foreach的优点在于可以遍历数组或者集合一遍，但是要引用数组或者集合的索引则无法做到。foreach一般结合泛型使用。
 
@@ -95,7 +93,7 @@ java的对象参数采用传地址值调用，而非引用调用。举例如下�
 public class trySwap{
   public void swap(onlyTest a, onlyTest b)
     {
-       onlyTest temp;
+      onlyTest temp;
       temp = a;
       a = b;
       b = temp;
@@ -105,7 +103,7 @@ public void showDiffer(){
   onlyTest ox = new onlyTest();
   onlyTest oy = new onlyTest();
   ox.setX(100);
-  oy.setX(100);
+  oy.setX(200);
   System.out.println("调用swap()方法之前的值：");
   System.out.println("ox.x=" + ox.getX()+",oy.x = "+oy.getX());
   swap(ox,oy);
@@ -166,10 +164,10 @@ JNIEXPORT void JNICALL Java_HelloNative_greeting(JNIEnv * env, jclass cl)
 ```java
 public class HelloNativeTest{
   public static void main(String args[])
-    {
-      System.loadLibrary("HelloNative");
-      HelloNative.greeting();
-    }
+  {
+    System.loadLibrary("HelloNative");
+    HelloNative.greeting();
+  }
 }
 ```
 
@@ -191,48 +189,48 @@ public class HelloNativeTest{
 
 ```java
 public class Root  
-  {  
-    static int num1;
-    int num2;
-    static{  
-      num1 = 3;
-      System.out.println("Root 的静态初始化块");  
-    }  
-    {  
-      num2 = 4;
-      System.out.println("Root 的普通初始化块");  
-    }  
-    public Root()  
-    {  
-      System.out.println("Root 的无参数的构造器");  
-    }  
+{  
+  static int num1;
+  int num2;
+  static{  
+    num1 = 3;
+    System.out.println("Root 的静态初始化块");  
   }  
+  {  
+    num2 = 4;
+    System.out.println("Root 的普通初始化块");  
+  }  
+  public Root()  
+  {  
+    System.out.println("Root 的无参数的构造器");  
+  }  
+}  
 
-  public class Mid extends Root  
-  {  
-    static{  
-      System.out.println("Mid 的静态初始化块");  
-    }  
-    public Mid()  
-    {  
-      System.out.println("Mid 的无参数的构造器");  
-    }  
-    public Mid(String msg)  
-    {  
-      //通过this调用同一类中重载的构造器  
-      this();  
-      System.out.println("Mid的带参构造器,其参数值:" + msg);  
-    }  
+public class Mid extends Root  
+{  
+  static{  
+    System.out.println("Mid 的静态初始化块");  
   }  
+  public Mid()  
+  {  
+    System.out.println("Mid 的无参数的构造器");  
+  }  
+  public Mid(String msg)  
+  {  
+    //通过this调用同一类中重载的构造器  
+    this();  
+    System.out.println("Mid的带参构造器,其参数值:" + msg);  
+  }  
+}  
 
-  public class Test  
+public class Test  
+{  
+  public static void main(String[] args)  
   {  
-    public static void main(String[] args)  
-    {  
-      new Mid();  
-      new Mid();  
-    }  
+    new Mid();  
+    new Mid();  
   }  
+}  
 ```
 
 类初始化阶段,先执行**最顶层父类的静态初始化块**,依次向下,最后执行**当前类静态初始化块**,对象初始化阶段,先执行**最顶层父类的初始化块,构造器**,依次向下,最后执行**当前类初始化块,构造器**。
@@ -247,7 +245,7 @@ public class Root
 
 一个即是static又是final的域只占一段不能改变的存储空间。只能赋一次值。
 
-对基本类型使用final不能改变的是他的**数值**。而对于对象引用，不能改变的是他的**引用**，而**对象本身是可以修改的**。一旦一个final引用被初始化指向一个对象，这个引用将不能在指向其他对象。java并未提供对任何对象恒定不变的支持。这一限制也通用适用于**数组**，它也是对象。
+对基本类型使用final不能改变的是他的**数值**。而对于对象引用，不能改变的是他的**引用**，而**对象本身是可以修改的**。一旦一个final引用被初始化指向一个对象，这个引用将不能再指向其他对象。java并未提供对任何对象恒定不变的支持。这一限制也通用适用于**数组**，它也是对象。
 
 - **final方法**
 
@@ -288,7 +286,7 @@ final类通常功能是完整的，它们不能被继承。
 
 ### **多态**
 
-java中所有方法都是通过后期动态绑定实现多态的，而域的访问时在编译期进行，不是多态的。
+java中所有方法都是通过后期动态绑定实现多态的，而域的访问是在编译期进行，不是多态的。
 
 - 多态中构造器的调用顺序
 
@@ -391,7 +389,7 @@ public class Demo {
 }
 ```
 
-###**java I/O操作类**
+### **java I/O操作类**
 
 ![](http://ohjnxvaxm.bkt.clouddn.com/IO-STREAM.jpg)
 
@@ -440,6 +438,8 @@ Scanner
 
 java平台允许我们在内存中创建可复用的Java对象，但一般情况下，只有当JVM处于运行时，这些对象才可能存在。但在现实应用中，可能要求在JVM停止运行之后能够保存(持久化)指定的对象，并在将来重新读取被保存的对象。Java对象序列化就能够帮助我们实现该功能。
 
+读取数据和写入数据时顺序一定要一致。
+
 对象的序列化主要有两种用途：
 1） 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中。
 2） 在网络上传送对象的字节序列。
@@ -482,7 +482,7 @@ public class Person implements Serializable {
         return "[" + name + ", " + age + "]";
     }
 }
-    SimpleSerial，是一个简单的序列化程序，它先将一个Person对象保存到文件person.out中，然后再从该文件中读出被存储的Person对象，并打印该对象。
+SimpleSerial，是一个简单的序列化程序，它先将一个Person对象保存到文件person.out中，然后再从该文件中读出被存储的Person对象，并打印该对象。
 public class SimpleSerial {
     public static void main(String[] args) throws Exception {
         File file = new File("person.out");

@@ -4,7 +4,7 @@ date: 2016-11-29 16:57:37
 tags: [cuda,linux,nsight]
 ---
 
-编代码容易，debug难啊！debug cuda程序并没有想象中那么容易。占用了我好久时间才弄好，还是太年轻啊！
+debug cuda程序貌似并没有想象中那么容易。
 
 我的环境是ubuntu16.04， cuda_toolkit 8.0 ，显卡驱动为nvidia-367，debug提示：
 

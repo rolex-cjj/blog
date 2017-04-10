@@ -419,6 +419,12 @@ vfork()创建的子进程与父进程共享数据段,而且由vfork()创建的�
 
 线程和进程
 
+#### 二：
+
+Little-endian和 Big-endian
+
+![](http://ohjnxvaxm.bkt.clouddn.com/little-big-endian.jpg)
+
 ### 数据结构
 
 #### 一：

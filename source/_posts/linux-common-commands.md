@@ -68,7 +68,7 @@ dump、dd
 
 nano、vi、vim
 
-vim真是个好东西啊！一定要熟练运用，其Visual block(常用v, y, yy, d, dd, p)，多档案编辑(:n, :N, :files)，多窗口功能(:sp {filename}, [ctrl]+w+↓/↑/q)，字符串搜索与替换(:n1,n2s/word1/word2/g)非常强大，常用命令还有1G, G, :set nu, :r filename, :! command。
+vim真是个好东西啊！一定要熟练运用，其Visual block(常用v, ctrl+v, y, yy, d, dd, p)，多档案编辑(:n, :N, :files)，多窗口功能(:sp {filename}, [ctrl]+w+↓/↑/q)，字符串搜索与替换(:n1,n2s/word1/word2/g)非常强大，常用命令还有1G, G, :set nu, :r filename, :! command。
 
 ![](http://ohjnxvaxm.bkt.clouddn.com/vim-commands.jpg)
 
@@ -166,11 +166,11 @@ free(内存使用情况)、lsb_release -a(显示操作系统版本信息，Linux
 
 ![](http://ohjnxvaxm.bkt.clouddn.com/software-manage.png)
 
-### 远程连接
+### **远程连接**
 
 ssh、scp(windows下有pscp)
 
-### 单用户模式修改root密码
+### **单用户模式修改root密码**
 
 在看鸟哥的私房菜基础篇的时候有提到过，如果忘记了root密码，不需要重装系统，可以进入单用户模式修改root密码。但如果是这样的话，那本地服务器的密码岂不是人人都可以修改了？然后我看了一个帖子，可以有方法防止密码被随意修改。
 

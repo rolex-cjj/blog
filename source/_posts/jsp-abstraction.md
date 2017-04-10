@@ -10,9 +10,7 @@ Servlet是JSP的前身。是在服务器端运行的小程序。一个Servlet就
 
 #### **执行流程**
 
-![](http://ohjnxvaxm.bkt.clouddn.com/servlet-execution.jpg)
-
-
+![](http://ohjnxvaxm.bkt.clouddn.com/execution-servlet.jpg)
 
 <!--more-->
 
@@ -45,7 +43,7 @@ taglib：定义一个标签库以及自定义标签的前缀
 
 ### **JSP脚本元素**
 
-注释：\<!--comment  --> <%--  comment --%>
+注释：<\!--comment  --> <%\--  comment --%>
 
 变量和方法声明：<%! declaration;[declaration;]%>
 
@@ -75,21 +73,23 @@ exception对象是一个异常对象，当一个页面在运行过程中发生�
 
 ### **JSP动作元素**
 
-重定向操作：\<jsp:forward page="URL"/>
+转发操作：\<jsp:forward page="URL"/\>
 
-​			等同于request.getRequestDispatcher("/url").forward(request,response);
+等同于request.getRequestDispatcher("/url").forward(request,response);
 
-包含操作：\<jsp:include page="URL"/>
+包含操作：\<jsp:include page="URL"/\>
 
-param动作：\<jsp:param name="参数名" value="">常与forward动作一起使用，作为其的子标签。
+param动作：\<jsp:param name="参数名" value=""\>常与forward动作一起使用，作为其的子标签。
 
-嵌入插件：\<jsp:plugin>
+嵌入插件：\<jsp:plugin\>
 
-创建Bean实例：\<jsp:useBean id="" class="" scope=""/>
+创建Bean实例：\<jsp:useBean id="" class="" scope=""/\>
 
-设置Bean属性：\<jsp:setProperty name="javabean实例名" property="javabean属性名,*为所有属性" [value="beanvalue" param="request对象中的参数名"]/>(跟表单name相关)
+设置Bean属性：\<jsp:setProperty name="javabean实例名" property="javabean属性名,*为所有属性" [value="beanvalue" param="request对象中的参数名"]/\>
 
-获取Bean属性：\<jsp:getProperty name="javabean实例名" property="javabean属性名"/>
+(跟表单name相关，param属性不能和value属性一起使用)
+
+获取Bean属性：\<jsp:getProperty name="javabean实例名" property="javabean属性名"/\>
 
 ### **JavaBean**
 
@@ -134,16 +134,16 @@ application 范围最大，也可通过application.getAttribute()方法获取jav
 
 ### **include指令与include动作比较**
 
-|             |           include指令           |        include动作         |
-| :---------: | :---------------------------: | :----------------------: |
-|    语法格式     |    <%@ include file=".."%>    | \<jsp:include page=".."> |
-|   发生作用时间    |      在JSP页面转换成Servlet之前       |         主页面被请求时          |
-|    包含的内容    |          文件实际内容，即源代码          |         页面的输出结果          |
-| 转换成的Servlet | 主页面和包含页面转换为一个Servlet（转换为同一个类） |   主页面和包含页面转换为独立Servlet   |
-|    编译时间     |          较慢——资源必须被解析          |            较快            |
-|    执行时间     |              稍快               |      较慢——每次资源必须被解析       |
+|             |           include指令           |         include动作         |
+| :---------: | :---------------------------: | :-----------------------: |
+|    语法格式     |    <%@ include file=".."%>    | \<jsp:include page=".."\> |
+|   发生作用时间    |      在JSP页面转换成Servlet之前       |          主页面被请求时          |
+|    包含的内容    |          文件实际内容，即源代码          |          页面的输出结果          |
+| 转换成的Servlet | 主页面和包含页面转换为一个Servlet（转换为同一个类） |   主页面和包含页面转换为独立Servlet    |
+|    编译时间     |          较慢——资源必须被解析          |            较快             |
+|    执行时间     |              稍快               |       较慢——每次资源必须被解析       |
 
-**include指令：**它的主要优点是功能强大，所包含的代码可以含有总体上影响主页面的JSP构造，比如属性、方法的定义和文档类型的设定。它的缺点是难于维护只要被包含的页面发生更改，就得更改主页面，这是因为主页面不会自动地查看被包含的页面是否发生更改。
+**include指令：**它的主要优点是功能强大，所包含的代码可以含有总体上影响主页面的JSP构造，比如属性、方法的定义和文档类型的设定。它的缺点是难于维护，只要被包含的页面发生更改，就得更改主页面，这是因为主页面不会自动地查看被包含的页面是否发生更改。
 
 **include动作：**它的优点是在被包含的页面发生更改时，无须对主页面做出修改。它的缺点是所包含的是次级页面的输出，而非次级页面的实际代码，所以在被包含的页面中不能使用任何有可能在整体上影响主页面的JSP构造。
 
