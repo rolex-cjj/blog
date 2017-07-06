@@ -953,7 +953,7 @@ rs.getString("name");
 - fallthrough 当使用switch操作时case后未加入break操作，而导致程序继续执行其他case语句时出现的警告
 - path 当设置一个错误的类路径、源文件路径时出现的警告
 - serial 当在可序列化的类上缺少serialVersionUID定义时的警告
-- fianally 任何finally子句不能正常完成时警告
+- finally 任何finally子句不能正常完成时警告
 - all 关于以上所有情况的警告
 
 **注解分类**

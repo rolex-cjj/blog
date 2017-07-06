@@ -566,5 +566,31 @@ throw用来抛出异常，throws用来声明抛出异常。
 
 一个方法中，如果使用throw抛出异常，要么自己捕获他，要么声明抛出了一个异常，交给上层处理。
 
+#### **try catch finally中含有return时的处理步骤**
+
+1、不管有没有出现异常，finally块中代码都会执行；
+
+2、当try和catch中有return时，finally仍然会执行；
+
+3、当finally中没有return，try或者catch中有return时，finally是在try和catch中return后面的表达式运算后执行的（此时并没有返回运算后的值，而是先把要返回的值保存起来，不管finally中的代码怎么样，返回的值都不会改变，仍然是之前保存的值），所以函数返回值是在finally执行前确定的；
+
+4、当finally中包含return时，程序会提前退出，返回finally中保存的返回值，不是try或catch中保存的返回值；
+
+5、return 语句会把后面的值复制一份用来返回，如果return的是基本类型的，finally里对变量的改动将不起效果，如果return 的是引用类型的，改动可以起效果。
+
+6、finally里的return语句会把try catch块里的return语句效果给覆盖掉。
+
+代码示例参考[Java异常捕获之try-catch-finally-return的执行顺序](http://blog.csdn.net/aaoxue/article/details/8535754)
+
+**建议**
+
+1、最好把return放到方法尾而不要在try catch 里return
+
+2、不要在try catch块和finally块里都包含return
+
+3、如果在try catch块里return, 则不要在finally块里操作被return的变量
+
+
+
 
 
