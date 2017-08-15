@@ -155,7 +155,7 @@ java.lang.Object    synchronized, wait(), notify(), notifyAll()
 
 - **volatile**
 
-如果声明一个域为volatile，那么编译器和虚拟机就知道该域是可能被另一个线程并发更新的。volatile变量不能提供原子性。
+如果声明一个域为volatile，那么编译器和虚拟机就知道该域是可能被另一个线程并发更新的。volatile变量可以提供可见性和有序性，不能提供原子性。
 
 #### **线程安全类**
 
